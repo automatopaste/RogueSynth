@@ -1,0 +1,13 @@
+{
+  "graphics": {
+    "variants": {
+      "standard": "graphics/icons/variants/RS_standard_icon.png",
+      "alpha": "graphics/icons/variants/RS_alpha_icon.png",
+      "ultra": "graphics/icons/variants/RS_ultra_icon.png",
+      "mythical": "graphics/icons/variants/RS_mythical_icon.png"
+    },
+    "banners": {
+      "warning": "graphics/icons/desc/HullmodBanner.png",
+    },
+  },
+}
