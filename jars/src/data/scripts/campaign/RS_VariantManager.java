@@ -3,26 +3,43 @@ package data.scripts.campaign;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.campaign.*;
 import com.fs.starfarer.api.campaign.econ.MarketAPI;
-import com.fs.starfarer.api.campaign.econ.SubmarketAPI;
 import com.fs.starfarer.api.characters.AbilityPlugin;
 import com.fs.starfarer.api.characters.PersonAPI;
 import com.fs.starfarer.api.combat.EngagementResultAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
 import com.fs.starfarer.api.impl.campaign.FleetEncounterContext;
 import com.fs.starfarer.api.impl.campaign.FleetInteractionDialogPluginImpl;
+import com.fs.starfarer.api.impl.campaign.ids.Factions;
+import com.fs.starfarer.api.util.Misc;
 import data.scripts.util.RS_Misc;
 
-import java.util.*;
+import java.util.Map;
 
 public class RS_VariantManager implements CampaignEventListener {
     private static final float BASE_CHANCE = 0.5f;
 
-    private static Map<String, CampaignFleetAPI> fleets = new HashMap<>();
-    private static Map<String, MarketAPI> markets = new HashMap<>();
-
     @Override
     public void reportPlayerOpenedMarket(MarketAPI market) {
+        if (market == null) return;
 
+        if (market.getFactionId().equals(Factions.PLAYER)) {
+            SubmarketPlugin storage = Misc.getStorage(market);
+            if (storage == null) return;
+
+            for (FleetMemberAPI member : storage.getCargo().getMothballedShips().getMembersListCopy()) {
+                boolean hasVar = false;
+                for (String id : member.getVariant().getHullMods()) {
+                    if (id.startsWith("RS_Var")) {
+                        hasVar = true;
+                        break;
+                    }
+                }
+
+                if (!hasVar) {
+                    RS_Misc.rollVariant(BASE_CHANCE, member.getHullSpec().getHullSize(), member);
+                }
+            }
+        }
     }
 
     @Override
@@ -32,43 +49,49 @@ public class RS_VariantManager implements CampaignEventListener {
 
     @Override
     public void reportPlayerOpenedMarketAndCargoUpdated(MarketAPI market) {
-        List<String> ids = new ArrayList<>();
+        if (market == null) return;
 
-        if (markets.containsValue(market)) {
-            for (String id : markets.keySet()) {
-                if (markets.get(id).equals(market)) ids.add(id);
-            }
-        }
+        if (market.getFactionId().equals(Factions.PLAYER)) {
+            SubmarketPlugin storage = Misc.getStorage(market);
+            if (storage == null) return;
 
-        for (SubmarketAPI submarket : market.getSubmarketsCopy()) {
-            if (submarket.getSpecId().equals("storage") || submarket.getSpecId().equals("local_resources")) continue;
-
-            for (FleetMemberAPI member : submarket.getCargo().getMothballedShips().getMembersListCopy()) {
-                String id = member.getId();
-                String rem = null;
-                if (ids.contains(id)) {
-                    rem = id;
+            for (FleetMemberAPI member : storage.getCargo().getMothballedShips().getMembersListCopy()) {
+                boolean hasVar = false;
+                for (String id : member.getVariant().getHullMods()) {
+                    if (id.startsWith("RS_Var")) {
+                        hasVar = true;
+                        break;
+                    }
                 }
-                if (rem != null) ids.remove(rem);
 
-                if (member.isFighterWing()) continue;
-
-                if (markets.containsKey(member.getId())) continue;
-
-                RS_Misc.rollVariant(BASE_CHANCE, member.getHullSpec().getHullSize(), member);
-                markets.put(id, market);
+                if (!hasVar) {
+                    RS_Misc.rollVariant(BASE_CHANCE, member.getHullSpec().getHullSize(), member);
+                }
             }
-        }
-
-        if (ids.isEmpty()) return;
-        for (String id : ids) {
-            markets.remove(id);
         }
     }
 
     @Override
     public void reportEncounterLootGenerated(FleetEncounterContextPlugin plugin, CargoAPI loot) {
+        if (plugin == null || loot == null) return;
 
+        for (FleetMemberAPI member : loot.getMothballedShips().getMembersListCopy()) {
+            if (member.isFighterWing()) continue;
+
+            boolean hasVar = false;
+            for (String id : member.getVariant().getHullMods()) {
+                if (id.startsWith("RS_Var")) {
+                    hasVar = true;
+                    break;
+                }
+            }
+
+            if (!hasVar) {
+                RS_Misc.rollVariant(BASE_CHANCE, member.getHullSpec().getHullSize(), member);
+            }
+        }
+
+        Global.getLogger(RS_VariantManager.class).info("Applying variants to loot: " + loot.getMothballedShips().getMembersListCopy().size() + " fleet members");
     }
 
     @Override
@@ -93,12 +116,7 @@ public class RS_VariantManager implements CampaignEventListener {
 
     @Override
     public void reportFleetDespawned(CampaignFleetAPI fleet, FleetDespawnReason reason, Object param) {
-        for (FleetMemberAPI member : fleet.getMembersWithFightersCopy()) {
-            if (member.isFighterWing()) continue;
 
-            String id = member.getId();
-            fleets.remove(id);
-        }
     }
 
     @Override
@@ -130,9 +148,19 @@ public class RS_VariantManager implements CampaignEventListener {
         for (FleetMemberAPI member : withAllies.getMembersWithFightersCopy()) {
             if (member.isFighterWing()) continue;
 
-            RS_Misc.rollVariant(BASE_CHANCE, member.getHullSpec().getHullSize(), member);
-            fleets.put(member.getId(), member.getFleetData().getFleet());
+            boolean hasVar = false;
+            for (String id : member.getVariant().getHullMods()) {
+                if (id.startsWith("RS_Var")) {
+                    hasVar = true;
+                    break;
+                }
+            }
+
+            if (!hasVar) {
+                RS_Misc.rollVariant(BASE_CHANCE, member.getHullSpec().getHullSize(), member);
+            }
         }
+
         Global.getLogger(RS_VariantManager.class).info("Applying variants to fleet: " + withAllies.getNameWithFaction());
     }
 

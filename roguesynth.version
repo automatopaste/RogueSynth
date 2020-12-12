@@ -1,0 +1,11 @@
+{
+	"masterVersionFile":"https://github.com/automatopaste/RogueSynth/releases/download/na/roguesynth.version",
+	"modName":"RogueSynth",
+	#"modThreadId":,
+	"modVersion":
+	{
+		"major":0,
+		"minor":1,
+		"patch":1-beta.2
+	},
+}

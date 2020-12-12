@@ -15,6 +15,7 @@ import java.util.*;
 
 public class RS_BaseVariantHullmod extends BaseHullMod {
     public enum VARIANT_RARITY {
+        NULL,
         STANDARD,
         ALPHA,
         ULTRA,
@@ -23,6 +24,8 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
     protected VARIANT_RARITY rarity;
     protected RS_VariantManager.VariantStats variantStats;
 
+    private static final Color NULL_COLOR = new Color(150, 150, 150, 255);
+    private static final Color NULL_HIGHLIGHT_COLOR = new Color(220, 220, 220, 255);
     private static final Color STANDARD_COLOR = new Color(54, 97, 201, 255);
     private static final Color STANDARD_HIGHLIGHT_COLOR = new Color(0, 105, 255, 255);
     private static final Color ALPHA_COLOR = new Color(69, 193, 200, 255);
@@ -32,16 +35,18 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
     private static final Color MYTHICAL_COLOR = new Color(80, 207, 59, 255);
     private static final Color MYTHICAL_HIGHLIGHT_COLOR = new Color(41, 255, 0, 255);
 
-    private static Map<VARIANT_RARITY, Color> RARITY_COLOUR = new HashMap<>();
+    private static final Map<VARIANT_RARITY, Color> RARITY_COLOUR = new HashMap<>();
     static {
+        RARITY_COLOUR.put(VARIANT_RARITY.NULL, NULL_COLOR);
         RARITY_COLOUR.put(VARIANT_RARITY.STANDARD, STANDARD_COLOR);
         RARITY_COLOUR.put(VARIANT_RARITY.ALPHA, ALPHA_COLOR);
         RARITY_COLOUR.put(VARIANT_RARITY.ULTRA, ULTRA_COLOR);
         RARITY_COLOUR.put(VARIANT_RARITY.MYTHICAL, MYTHICAL_COLOR);
     }
 
-    private static Map<VARIANT_RARITY, Color> RARITY_HIGHLIGHT_COLOUR = new HashMap<>();
+    private static final Map<VARIANT_RARITY, Color> RARITY_HIGHLIGHT_COLOUR = new HashMap<>();
     static {
+        RARITY_HIGHLIGHT_COLOUR .put(VARIANT_RARITY.NULL, NULL_HIGHLIGHT_COLOR);
         RARITY_HIGHLIGHT_COLOUR.put(VARIANT_RARITY.STANDARD, STANDARD_HIGHLIGHT_COLOR);
         RARITY_HIGHLIGHT_COLOUR.put(VARIANT_RARITY.ALPHA, ALPHA_HIGHLIGHT_COLOR);
         RARITY_HIGHLIGHT_COLOUR.put(VARIANT_RARITY.ULTRA, ULTRA_HIGHLIGHT_COLOR);
@@ -50,8 +55,9 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
 
     private static final Color DEBUFF_HIGHLIGHT_COLOUR = new Color(191, 0, 8, 255);
 
-    private static Map<VARIANT_RARITY, String> VARIANT_ICON = new HashMap<>();
+    private static final Map<VARIANT_RARITY, String> VARIANT_ICON = new HashMap<>();
     static {
+        VARIANT_ICON.put(VARIANT_RARITY.NULL, "graphics/icons/variants/RS_null_icon.png");
         VARIANT_ICON.put(VARIANT_RARITY.STANDARD, "graphics/icons/variants/RS_standard_icon.png");
         VARIANT_ICON.put(VARIANT_RARITY.ALPHA, "graphics/icons/variants/RS_alpha_icon.png");
         VARIANT_ICON.put(VARIANT_RARITY.ULTRA, "graphics/icons/variants/RS_ultra_icon.png");
@@ -63,6 +69,7 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
     protected String flavourText;
     protected String additionalInfo;
     protected Color infoColour;
+    protected boolean isStubText = false;
 
     protected boolean doJitterUnder;
     protected boolean doWeaponGlow;
@@ -129,7 +136,7 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
                     stats.getHullBonus().modifyPercent(id, mod);
                     break;
                 case ARMOUR:
-                    stats.getArmorBonus().modifyPercent(id, mod);
+                    stats.getArmorBonus().modifyFlat(id, mod);
                     break;
                 case BREAK_PROB:
                     stats.getBreakProb().modifyPercent(id, mod);
@@ -264,7 +271,6 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
     public void addPostDescriptionSection(TooltipMakerAPI tooltip, ShipAPI.HullSize hullSize, ShipAPI ship, float width, boolean isForModSpec) {
         if (isForModSpec) return;
 
-
         String qualityText = rarity.toString().toUpperCase();
         String variantIcon = VARIANT_ICON.get(rarity);
 
@@ -275,6 +281,7 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
         flavourLabel.setAlignment(Alignment.RMID);
         tooltip.addImageWithText(10f);
 
+        if (isStubText) return;
 
         tooltip.addSectionHeading("VARIANT DATA", Alignment.MID, 10f);
         tooltip.addImage("graphics/icons/desc/HullmodBanner.png", 368f, 25f, 8f);
@@ -806,9 +813,7 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
             public int compare(String s1, String s2) {
                 float n1 = Float.parseFloat(s1.substring(s1.indexOf("!") + 1));
                 float n2 = Float.parseFloat(s2.substring(s2.indexOf("!") + 1));
-                if (n1 * n1 > n2 * n2) return -1; //sort backwards, highest on top, by magnitude
-                if (n1 * n1 < n2 * n2) return 1;
-                return 0;
+                return Float.compare(n2 * n2, n1 * n1); //sort backwards, highest on top, by magnitude
             }
         });
         Collections.sort(debuffKeys, new Comparator<String>() {
@@ -816,9 +821,7 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
             public int compare(String s1, String s2) {
                 float n1 = Float.parseFloat(s1.substring(s1.indexOf("!") + 1));
                 float n2 = Float.parseFloat(s2.substring(s2.indexOf("!") + 1));
-                if (n1 * n1 > n2 * n2) return 1;
-                if (n1 * n1 < n2 * n2) return -1;
-                return 0;
+                return Float.compare(n1 * n1, n2 * n2);
             }
         });
 

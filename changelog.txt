@@ -1,0 +1,4 @@
+beta.2
+-fixed armour mods using percent change instead of flat chage
+-post battle salvage should always contain ships with variants (temporary fix for ally-including battles)
+-added in-combat render plugin that displays variant icons next to ship in gui, overlay can be toggled with "P"

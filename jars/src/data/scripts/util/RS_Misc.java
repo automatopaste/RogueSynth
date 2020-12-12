@@ -1,10 +1,8 @@
 package data.scripts.util;
 
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.campaign.CampaignFleetAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
-import com.fs.starfarer.api.loading.HullModSpecAPI;
 import data.scripts.campaign.RS_VariantManager;
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -13,7 +11,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class RS_Misc {
-    private static Map<ShipAPI.HullSize, Float> weight = new HashMap<>();
+    private static final Map<ShipAPI.HullSize, Float> weight = new HashMap<>();
     static {
         weight.put(ShipAPI.HullSize.FRIGATE, 1f);
         weight.put(ShipAPI.HullSize.DESTROYER, 1.05f);
@@ -25,15 +23,20 @@ public class RS_Misc {
         STANDARD,
         ALPHA,
         ULTRA,
-        MYTHICAL
+        MYTHICAL,
+        NULL
     }
 
-    private static Map<Rarity, List<String>> variants = new HashMap<>();
+    private static final Map<Rarity, List<String>> variants = new HashMap<>();
 
     public static void rollVariant(final float chance, final ShipAPI.HullSize hullSize, final FleetMemberAPI member) {
         Random random = new Random();
         float pick = random.nextFloat();
-        if (chance < pick) return;
+        if (chance < pick) {
+            member.getVariant().addPermaMod("RS_VarNull");
+            Global.getLogger(RS_VariantManager.class).info("Applying variant to fleetmember: " + member.getVariant().getFullDesignationWithHullName() + " with id " + "RS_VarNull");
+            return;
+        }
 
         float num = random.nextFloat();
 
