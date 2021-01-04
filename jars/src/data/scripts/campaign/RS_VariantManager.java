@@ -276,6 +276,4 @@ public class RS_VariantManager implements CampaignEventListener {
             this.stats = stats;
         }
     }
-
-
 }
