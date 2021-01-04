@@ -1,5 +1,6 @@
 package data.scripts.hullmods;
 
+import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
@@ -24,16 +25,26 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
     protected VARIANT_RARITY rarity;
     protected RS_VariantManager.VariantStats variantStats;
 
-    private static final Color NULL_COLOR = new Color(150, 150, 150, 255);
-    private static final Color NULL_HIGHLIGHT_COLOR = new Color(220, 220, 220, 255);
-    private static final Color STANDARD_COLOR = new Color(54, 97, 201, 255);
-    private static final Color STANDARD_HIGHLIGHT_COLOR = new Color(0, 105, 255, 255);
-    private static final Color ALPHA_COLOR = new Color(69, 193, 200, 255);
-    private static final Color ALPHA_HIGHLIGHT_COLOR = new Color(0, 232, 255, 255);
-    private static final Color ULTRA_COLOR = new Color(212, 117, 47, 255);
-    private static final Color ULTRA_HIGHLIGHT_COLOR = new Color(255, 124, 0, 255);
-    private static final Color MYTHICAL_COLOR = new Color(80, 207, 59, 255);
-    private static final Color MYTHICAL_HIGHLIGHT_COLOR = new Color(41, 255, 0, 255);
+    //private static final Color NULL_COLOR = new Color(150, 150, 150, 255);
+    private static final Color NULL_COLOR = Global.getSettings().getColor("RS_nullColour");
+    //private static final Color NULL_HIGHLIGHT_COLOR = new Color(220, 220, 220, 255);
+    private static final Color NULL_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_nullHighlightColour");
+    //private static final Color STANDARD_COLOR = new Color(54, 97, 201, 255);
+    private static final Color STANDARD_COLOR = Global.getSettings().getColor("RS_standardColour");
+    //private static final Color STANDARD_HIGHLIGHT_COLOR = new Color(0, 105, 255, 255);
+    private static final Color STANDARD_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_standardHighlightColour");
+    //private static final Color ALPHA_COLOR = new Color(69, 193, 200, 255);
+    private static final Color ALPHA_COLOR = Global.getSettings().getColor("RS_alphaColour");
+    //private static final Color ALPHA_HIGHLIGHT_COLOR = new Color(0, 232, 255, 255);
+    private static final Color ALPHA_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_alphaHighlightColour");
+    //private static final Color ULTRA_COLOR = new Color(212, 117, 47, 255);
+    private static final Color ULTRA_COLOR = Global.getSettings().getColor("RS_ultraColour");
+    //private static final Color ULTRA_HIGHLIGHT_COLOR = new Color(255, 124, 0, 255);
+    private static final Color ULTRA_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_ultraHighlightColour");
+    //private static final Color MYTHICAL_COLOR = new Color(80, 207, 59, 255);
+    private static final Color MYTHICAL_COLOR = Global.getSettings().getColor("RS_mythicalColour");
+    //private static final Color MYTHICAL_HIGHLIGHT_COLOR = new Color(41, 255, 0, 255);
+    private static final Color MYTHICAL_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_mythicalHighlightColour");
 
     private static final Map<VARIANT_RARITY, Color> RARITY_COLOUR = new HashMap<>();
     static {
@@ -53,7 +64,8 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
         RARITY_HIGHLIGHT_COLOUR.put(VARIANT_RARITY.MYTHICAL, MYTHICAL_HIGHLIGHT_COLOR);
     }
 
-    private static final Color DEBUFF_HIGHLIGHT_COLOUR = new Color(191, 0, 8, 255);
+    //private static final Color DEBUFF_HIGHLIGHT_COLOUR = new Color(191, 0, 8, 255);
+    private static final Color DEBUFF_HIGHLIGHT_COLOUR = Global.getSettings().getColor("RS_debuffHighlightColour");
 
     private static final Map<VARIANT_RARITY, String> VARIANT_ICON = new HashMap<>();
     static {

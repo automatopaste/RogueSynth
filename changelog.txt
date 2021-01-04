@@ -1,3 +1,5 @@
+beta.3
+-fixed nullpointer crash relating to post-battle salvage
 beta.2
 -fixed armour mods using percent change instead of flat chage
 -post battle salvage should always contain ships with variants (temporary fix for ally-including battles)

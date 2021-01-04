@@ -29,13 +29,13 @@ public class RS_Misc {
 
     private static final Map<Rarity, List<String>> variants = new HashMap<>();
 
-    public static void rollVariant(final float chance, final ShipAPI.HullSize hullSize, final FleetMemberAPI member) {
+    public static String rollVariant(final float chance, final ShipAPI.HullSize hullSize, final FleetMemberAPI member) {
         Random random = new Random();
         float pick = random.nextFloat();
         if (chance < pick) {
             member.getVariant().addPermaMod("RS_VarNull");
             Global.getLogger(RS_VariantManager.class).info("Applying variant to fleetmember: " + member.getVariant().getFullDesignationWithHullName() + " with id " + "RS_VarNull");
-            return;
+            return null;
         }
 
         float num = random.nextFloat();
@@ -55,10 +55,25 @@ public class RS_Misc {
         }
 
         List<String> ids = variants.get(rarity);
-        if (ids.isEmpty()) return;
+        if (ids.isEmpty()) return null;
         String id = ids.get(random.nextInt(ids.size()));
         member.getVariant().addPermaMod(id);
         Global.getLogger(RS_VariantManager.class).info("Applying variant to fleetmember: " + member.getVariant().getFullDesignationWithHullName() + " with id " + id);
+
+        return id;
+    }
+
+    public static void removeVariants(FleetMemberAPI member) {
+        List<String> toRemove = new LinkedList<>();
+
+        for (String id : member.getVariant().getPermaMods()) {
+            if (id.startsWith("RS_Var")) {
+                toRemove.add(id);
+            }
+        }
+        for (String id : toRemove) {
+            member.getVariant().removePermaMod(id);
+        }
     }
 
     public static void parseRarities() throws IOException, JSONException {

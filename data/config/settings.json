@@ -15,4 +15,17 @@
       "warning": "graphics/icons/desc/HullmodBanner.png",
     },
   },
+
+  "RS_nullColour":[150,150,150,255], #default [150,150,150,255]
+  "RS_standardColour":[54,97,201,255], #default [54,97,201,255]
+  "RS_alphaColour":[69,193,200,255], #default [69,193,200,255]
+  "RS_ultraColour":[212,117,47,255], #default [212,117,47,255]
+  "RS_mythicalColour":[80,207,59,255], #default [80,207,59,255]
+  "RS_nullHighlightColour":[220,220,220,255], #default [220,220,220,255]
+  "RS_standardHighlightColour":[0,105,255,255], #default [0,105,255,255]
+  "RS_alphaHighlightColour":[0,232,255,255], #default [0,232,255,255]
+  "RS_ultraHighlightColour":[255,124,0,255], #default [255,124,0,255]
+  "RS_mythicalHighlightColour":[41,255,0,255], #default [41,255,0,255]
+
+  "RS_debuffHighlightColour":[191,0,8,255], #default [191,0,8,255]
 }

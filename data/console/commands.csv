@@ -1,3 +1,4 @@
 command,class,tags,syntax,help
-RSAddVar,data.scripts.console.commands.RS_AddVarHullmod,"roguesynth",RSAddVar <var hullmod id> <ship display name>,Add an inbuilt hullmod (works on non-RS hullmod IDs too)
-RSRemVar,data.scripts.console.commands.RS_RemVarHullmods,"roguesynth",RSRemVar <ship display name>,Remove inbuilt RS_Var hullmods
+RSAddVar,data.scripts.console.commands.RS_AddVarHullmod,"roguesynth",RSAddVar <var hullmod id> <ship display name>,Add an inbuilt hullmod (works on non-RS hullmod IDs too).
+RSRemVar,data.scripts.console.commands.RS_RemVarHullmods,"roguesynth",RSRemVar <ship display name>,Remove inbuilt RS_Var hullmods.
+RSRandVars,data.scripts.console.commands.RS_RandomizeFleetVars,"roguesynth",RSRandVars <ship name or all>,Randomize variants (including null variants) of ships in fleet. Use keyword all to randomize entire fleet.

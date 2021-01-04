@@ -16,7 +16,7 @@ import data.scripts.util.RS_Misc;
 import java.util.Map;
 
 public class RS_VariantManager implements CampaignEventListener {
-    private static final float BASE_CHANCE = 0.5f;
+    public static final float BASE_CHANCE = 0.5f;
 
     @Override
     public void reportPlayerOpenedMarket(MarketAPI market) {
@@ -73,7 +73,7 @@ public class RS_VariantManager implements CampaignEventListener {
 
     @Override
     public void reportEncounterLootGenerated(FleetEncounterContextPlugin plugin, CargoAPI loot) {
-        if (plugin == null || loot == null) return;
+        if (plugin == null || loot == null || loot.getMothballedShips() == null) return;
 
         for (FleetMemberAPI member : loot.getMothballedShips().getMembersListCopy()) {
             if (member.isFighterWing()) continue;
