@@ -14,6 +14,9 @@
     "banners": {
       "warning": "graphics/icons/desc/HullmodBanner.png",
     },
+    "memes": {
+      "kurtzed": "graphics/icons/memes/RS_VarKurtzed.png",
+    }
   },
 
   "RS_nullColour":[150,150,150,255], #default [150,150,150,255]

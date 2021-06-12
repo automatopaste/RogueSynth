@@ -20,7 +20,7 @@ public class RS_VarSuperElite extends RS_BaseVariantHullmod {
     public RS_VarSuperElite() {
         this.rarity = VARIANT_RARITY.MYTHICAL;
         this.variantDesignation = "Super Elite";
-        this.flavourText = "\"Cocanium!\"";
+        this.flavourText = "\"Cocainum!\"";
         this.doJitterUnder = true;
         this.doVentColour = true;
         this.doWeaponGlow = true;

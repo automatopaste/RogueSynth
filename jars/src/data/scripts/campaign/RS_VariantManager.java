@@ -22,7 +22,8 @@ public class RS_VariantManager implements CampaignEventListener {
     public void reportPlayerOpenedMarket(MarketAPI market) {
         if (market == null) return;
 
-        if (market.getFactionId().equals(Factions.PLAYER)) {
+        //if (market.getFactionId().equals(Factions.PLAYER)) {
+        if (true) {
             SubmarketPlugin storage = Misc.getStorage(market);
             if (storage == null) return;
 
@@ -51,7 +52,8 @@ public class RS_VariantManager implements CampaignEventListener {
     public void reportPlayerOpenedMarketAndCargoUpdated(MarketAPI market) {
         if (market == null) return;
 
-        if (market.getFactionId().equals(Factions.PLAYER)) {
+        //if (market.getFactionId().equals(Factions.PLAYER)) {
+        if (true) {
             SubmarketPlugin storage = Misc.getStorage(market);
             if (storage == null) return;
 

@@ -18,5 +18,8 @@ Divinity,RS_VarDivinity,0,,,,,0,,TRUE,,0,0,0,0,data.scripts.hullmods.variants.my
 Blessed,RS_VarBlessed,0,,,,,0,,TRUE,,0,0,0,0,data.scripts.hullmods.variants.mythical.RS_VarBlessed,The %s has had core systems modified to conform to a particular loadout configuration.,This ship has been retrofitted.,graphics/hullmods/RS_blessed.png
 Magnum,RS_VarMagnum,0,,,,,0,,TRUE,,0,0,0,0,data.scripts.hullmods.variants.mythical.RS_VarMagnum,The %s has had core systems modified to conform to a particular loadout configuration.,This ship has been retrofitted.,graphics/hullmods/RS_magnum.png
 Super-Elite,RS_VarSuperElite,0,,,,,0,,TRUE,,0,0,0,0,data.scripts.hullmods.variants.mythical.RS_VarSuperElite,The %s has had core systems modified to conform to a particular loadout configuration.,This ship has been retrofitted.,graphics/hullmods/RS_super-elite.png
+Kurtzed,RS_VarKurtzed,0,,,,,0,,TRUE,,0,0,0,0,data.scripts.hullmods.variants.mythical.RS_VarKurtzed,The %s has had core systems modified to conform to a particular loadout configuration.,This ship has been retrofitted.,graphics/hullmods/RS_super-elite.png
 ,,,,,,,,,,,,,,,,,,
 Null,RS_VarNull,0,,,,,0,,TRUE,,0,0,0,0,data.scripts.hullmods.variants.RS_VarNull,"The %s has not had any core modifications installed and all systems conform to benchmark performance stats, aside from the effects of conventional hullmods.",This ship has not been retrofitted.,graphics/hullmods/RS_null.png
+,,,,,,,,,,,,,,,,,,
+Logistics Hullmods,RS_Separator,0,,,,,0,TRUE,FALSE,,0,0,0,0,data.scripts.hullmods.RS_SeparatorHullmod,lmao,,graphics/hullmods/RS_separator.png

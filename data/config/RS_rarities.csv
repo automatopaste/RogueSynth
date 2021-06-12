@@ -18,5 +18,6 @@ RS_VarDivinity,MYTHICAL
 RS_VarBlessed,MYTHICAL
 RS_VarMagnum,MYTHICAL
 RS_VarSuperElite,MYTHICAL
+RS_VarKurtzed,MYTHICAL
 ,
 RS_VarNull,NULL

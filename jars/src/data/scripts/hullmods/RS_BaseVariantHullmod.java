@@ -26,25 +26,25 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
     protected RS_VariantManager.VariantStats variantStats;
 
     //private static final Color NULL_COLOR = new Color(150, 150, 150, 255);
-    private static final Color NULL_COLOR = Global.getSettings().getColor("RS_nullColour");
+    protected static final Color NULL_COLOR = Global.getSettings().getColor("RS_nullColour");
     //private static final Color NULL_HIGHLIGHT_COLOR = new Color(220, 220, 220, 255);
-    private static final Color NULL_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_nullHighlightColour");
+    protected static final Color NULL_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_nullHighlightColour");
     //private static final Color STANDARD_COLOR = new Color(54, 97, 201, 255);
-    private static final Color STANDARD_COLOR = Global.getSettings().getColor("RS_standardColour");
+    protected static final Color STANDARD_COLOR = Global.getSettings().getColor("RS_standardColour");
     //private static final Color STANDARD_HIGHLIGHT_COLOR = new Color(0, 105, 255, 255);
-    private static final Color STANDARD_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_standardHighlightColour");
+    protected static final Color STANDARD_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_standardHighlightColour");
     //private static final Color ALPHA_COLOR = new Color(69, 193, 200, 255);
-    private static final Color ALPHA_COLOR = Global.getSettings().getColor("RS_alphaColour");
+    protected static final Color ALPHA_COLOR = Global.getSettings().getColor("RS_alphaColour");
     //private static final Color ALPHA_HIGHLIGHT_COLOR = new Color(0, 232, 255, 255);
-    private static final Color ALPHA_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_alphaHighlightColour");
+    protected static final Color ALPHA_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_alphaHighlightColour");
     //private static final Color ULTRA_COLOR = new Color(212, 117, 47, 255);
-    private static final Color ULTRA_COLOR = Global.getSettings().getColor("RS_ultraColour");
+    protected static final Color ULTRA_COLOR = Global.getSettings().getColor("RS_ultraColour");
     //private static final Color ULTRA_HIGHLIGHT_COLOR = new Color(255, 124, 0, 255);
-    private static final Color ULTRA_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_ultraHighlightColour");
+    protected static final Color ULTRA_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_ultraHighlightColour");
     //private static final Color MYTHICAL_COLOR = new Color(80, 207, 59, 255);
-    private static final Color MYTHICAL_COLOR = Global.getSettings().getColor("RS_mythicalColour");
+    protected static final Color MYTHICAL_COLOR = Global.getSettings().getColor("RS_mythicalColour");
     //private static final Color MYTHICAL_HIGHLIGHT_COLOR = new Color(41, 255, 0, 255);
-    private static final Color MYTHICAL_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_mythicalHighlightColour");
+    protected static final Color MYTHICAL_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_mythicalHighlightColour");
 
     private static final Map<VARIANT_RARITY, Color> RARITY_COLOUR = new HashMap<>();
     static {
@@ -297,7 +297,6 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
 
         tooltip.addSectionHeading("VARIANT DATA", Alignment.MID, 10f);
         tooltip.addImage("graphics/icons/desc/HullmodBanner.png", 368f, 25f, 8f);
-
 
         tooltip.addPara("This variant has the following qualities affecting performance.",8f);
 
@@ -888,5 +887,16 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
         l.setHighlight(l.getText());
         l.setHighlightColor(new Color(255, 0, 0, 255));
         l.setAlignment(Alignment.MID);*/
+
+        addPostPostDescriptionSection(tooltip, hullSize, ship, width, isForModSpec);
+    }
+
+    @Override
+    public Color getBorderColor() {
+        return RARITY_HIGHLIGHT_COLOUR.get(rarity);
+    }
+
+    protected void addPostPostDescriptionSection(TooltipMakerAPI tooltip, ShipAPI.HullSize hullSize, ShipAPI ship, float width, boolean isForModSpec) {
+
     }
 }

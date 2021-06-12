@@ -4,7 +4,7 @@
   "author": "tomatopaste",
   "version": "0.0.1-beta.4",
   "description": "Adds random variants to all ships in campaign through permanent hullmods with unique and powerful effects.",
-  "gameVersion": "0.9.1a-RC8",
+  "gameVersion": "0.95a-RC15",
   "jars": ["jars/RogueSynth.jar"],
   "modPlugin": "data.scripts.RS_ModPlugin",
 }

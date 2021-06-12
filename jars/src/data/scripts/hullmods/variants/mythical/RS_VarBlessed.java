@@ -1,5 +1,7 @@
 package data.scripts.hullmods.variants.mythical;
 
+import com.fs.starfarer.api.Global;
+import com.fs.starfarer.api.combat.WeaponAPI;
 import data.scripts.campaign.RS_VariantManager;
 import data.scripts.hullmods.RS_BaseVariantHullmod;
 
