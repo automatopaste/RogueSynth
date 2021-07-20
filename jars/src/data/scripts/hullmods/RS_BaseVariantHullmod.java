@@ -4,76 +4,77 @@ import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.BaseHullMod;
 import com.fs.starfarer.api.combat.MutableShipStatsAPI;
 import com.fs.starfarer.api.combat.ShipAPI;
-import com.fs.starfarer.api.combat.WeaponAPI;
 import com.fs.starfarer.api.ui.Alignment;
 import com.fs.starfarer.api.ui.LabelAPI;
 import com.fs.starfarer.api.ui.TooltipMakerAPI;
+import com.fs.starfarer.api.util.IntervalUtil;
 import data.scripts.campaign.RS_VariantManager;
 import org.lwjgl.util.vector.Vector2f;
 
-import java.awt.Color;
+import java.awt.*;
+import java.util.List;
 import java.util.*;
 
 public class RS_BaseVariantHullmod extends BaseHullMod {
-    public enum VARIANT_RARITY {
+    public enum VariantRarity {
         NULL,
         STANDARD,
         ALPHA,
         ULTRA,
         MYTHICAL
     }
-    protected VARIANT_RARITY rarity;
+    protected VariantRarity rarity;
     protected RS_VariantManager.VariantStats variantStats;
 
     //private static final Color NULL_COLOR = new Color(150, 150, 150, 255);
-    protected static final Color NULL_COLOR = Global.getSettings().getColor("RS_nullColour");
+    public static final Color NULL_COLOR = Global.getSettings().getColor("RS_nullColour");
     //private static final Color NULL_HIGHLIGHT_COLOR = new Color(220, 220, 220, 255);
-    protected static final Color NULL_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_nullHighlightColour");
+    public static final Color NULL_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_nullHighlightColour");
     //private static final Color STANDARD_COLOR = new Color(54, 97, 201, 255);
-    protected static final Color STANDARD_COLOR = Global.getSettings().getColor("RS_standardColour");
+    public static final Color STANDARD_COLOR = Global.getSettings().getColor("RS_standardColour");
     //private static final Color STANDARD_HIGHLIGHT_COLOR = new Color(0, 105, 255, 255);
-    protected static final Color STANDARD_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_standardHighlightColour");
+    public static final Color STANDARD_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_standardHighlightColour");
     //private static final Color ALPHA_COLOR = new Color(69, 193, 200, 255);
-    protected static final Color ALPHA_COLOR = Global.getSettings().getColor("RS_alphaColour");
+    public static final Color ALPHA_COLOR = Global.getSettings().getColor("RS_alphaColour");
     //private static final Color ALPHA_HIGHLIGHT_COLOR = new Color(0, 232, 255, 255);
-    protected static final Color ALPHA_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_alphaHighlightColour");
+    public static final Color ALPHA_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_alphaHighlightColour");
     //private static final Color ULTRA_COLOR = new Color(212, 117, 47, 255);
-    protected static final Color ULTRA_COLOR = Global.getSettings().getColor("RS_ultraColour");
+    public static final Color ULTRA_COLOR = Global.getSettings().getColor("RS_ultraColour");
     //private static final Color ULTRA_HIGHLIGHT_COLOR = new Color(255, 124, 0, 255);
-    protected static final Color ULTRA_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_ultraHighlightColour");
+    public static final Color ULTRA_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_ultraHighlightColour");
     //private static final Color MYTHICAL_COLOR = new Color(80, 207, 59, 255);
-    protected static final Color MYTHICAL_COLOR = Global.getSettings().getColor("RS_mythicalColour");
+    public static final Color MYTHICAL_COLOR = Global.getSettings().getColor("RS_mythicalColour");
     //private static final Color MYTHICAL_HIGHLIGHT_COLOR = new Color(41, 255, 0, 255);
-    protected static final Color MYTHICAL_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_mythicalHighlightColour");
+    public static final Color MYTHICAL_HIGHLIGHT_COLOR = Global.getSettings().getColor("RS_mythicalHighlightColour");
 
-    private static final Map<VARIANT_RARITY, Color> RARITY_COLOUR = new HashMap<>();
+    private static final Map<VariantRarity, Color> RARITY_COLOUR = new HashMap<>();
     static {
-        RARITY_COLOUR.put(VARIANT_RARITY.NULL, NULL_COLOR);
-        RARITY_COLOUR.put(VARIANT_RARITY.STANDARD, STANDARD_COLOR);
-        RARITY_COLOUR.put(VARIANT_RARITY.ALPHA, ALPHA_COLOR);
-        RARITY_COLOUR.put(VARIANT_RARITY.ULTRA, ULTRA_COLOR);
-        RARITY_COLOUR.put(VARIANT_RARITY.MYTHICAL, MYTHICAL_COLOR);
+        RARITY_COLOUR.put(VariantRarity.NULL, NULL_COLOR);
+        RARITY_COLOUR.put(VariantRarity.STANDARD, STANDARD_COLOR);
+        RARITY_COLOUR.put(VariantRarity.ALPHA, ALPHA_COLOR);
+        RARITY_COLOUR.put(VariantRarity.ULTRA, ULTRA_COLOR);
+        RARITY_COLOUR.put(VariantRarity.MYTHICAL, MYTHICAL_COLOR);
     }
 
-    private static final Map<VARIANT_RARITY, Color> RARITY_HIGHLIGHT_COLOUR = new HashMap<>();
+    private static final Map<VariantRarity, Color> RARITY_HIGHLIGHT_COLOUR = new HashMap<>();
     static {
-        RARITY_HIGHLIGHT_COLOUR .put(VARIANT_RARITY.NULL, NULL_HIGHLIGHT_COLOR);
-        RARITY_HIGHLIGHT_COLOUR.put(VARIANT_RARITY.STANDARD, STANDARD_HIGHLIGHT_COLOR);
-        RARITY_HIGHLIGHT_COLOUR.put(VARIANT_RARITY.ALPHA, ALPHA_HIGHLIGHT_COLOR);
-        RARITY_HIGHLIGHT_COLOUR.put(VARIANT_RARITY.ULTRA, ULTRA_HIGHLIGHT_COLOR);
-        RARITY_HIGHLIGHT_COLOUR.put(VARIANT_RARITY.MYTHICAL, MYTHICAL_HIGHLIGHT_COLOR);
+        RARITY_HIGHLIGHT_COLOUR .put(VariantRarity.NULL, NULL_HIGHLIGHT_COLOR);
+        RARITY_HIGHLIGHT_COLOUR.put(VariantRarity.STANDARD, STANDARD_HIGHLIGHT_COLOR);
+        RARITY_HIGHLIGHT_COLOUR.put(VariantRarity.ALPHA, ALPHA_HIGHLIGHT_COLOR);
+        RARITY_HIGHLIGHT_COLOUR.put(VariantRarity.ULTRA, ULTRA_HIGHLIGHT_COLOR);
+        RARITY_HIGHLIGHT_COLOUR.put(VariantRarity.MYTHICAL, MYTHICAL_HIGHLIGHT_COLOR);
     }
 
     //private static final Color DEBUFF_HIGHLIGHT_COLOUR = new Color(191, 0, 8, 255);
-    private static final Color DEBUFF_HIGHLIGHT_COLOUR = Global.getSettings().getColor("RS_debuffHighlightColour");
+    public static final Color DEBUFF_HIGHLIGHT_COLOUR = Global.getSettings().getColor("RS_debuffHighlightColour");
 
-    private static final Map<VARIANT_RARITY, String> VARIANT_ICON = new HashMap<>();
+    private static final Map<VariantRarity, String> VARIANT_ICON = new HashMap<>();
     static {
-        VARIANT_ICON.put(VARIANT_RARITY.NULL, "graphics/icons/variants/RS_null_icon.png");
-        VARIANT_ICON.put(VARIANT_RARITY.STANDARD, "graphics/icons/variants/RS_standard_icon.png");
-        VARIANT_ICON.put(VARIANT_RARITY.ALPHA, "graphics/icons/variants/RS_alpha_icon.png");
-        VARIANT_ICON.put(VARIANT_RARITY.ULTRA, "graphics/icons/variants/RS_ultra_icon.png");
-        VARIANT_ICON.put(VARIANT_RARITY.MYTHICAL, "graphics/icons/variants/RS_mythical_icon.png");
+        VARIANT_ICON.put(VariantRarity.NULL, "graphics/icons/variants/RS_null_icon.png");
+        VARIANT_ICON.put(VariantRarity.STANDARD, "graphics/icons/variants/RS_standard_icon.png");
+        VARIANT_ICON.put(VariantRarity.ALPHA, "graphics/icons/variants/RS_alpha_icon.png");
+        VARIANT_ICON.put(VariantRarity.ULTRA, "graphics/icons/variants/RS_ultra_icon.png");
+        VARIANT_ICON.put(VariantRarity.MYTHICAL, "graphics/icons/variants/RS_mythical_icon.png");
     }
     private static final Vector2f iconSize = new Vector2f(64f, 64f);
 
@@ -259,23 +260,44 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
         return null;
     }
 
+    private final IntervalUtil afterimageInterval = new IntervalUtil(0.2f, 0.2f);
+
     @Override
     public void advanceInCombat(ShipAPI ship, float amount) {
         if (ship == null || !ship.isAlive()) return;
 
-        if (doVentColour) ship.setVentFringeColor(RARITY_COLOUR.get(rarity));
+        //if (doVentColour) ship.setVentFringeColor(RARITY_COLOUR.get(rarity));
 
-        if (doWeaponGlow) ship.setWeaponGlow(1.5f, RARITY_HIGHLIGHT_COLOUR.get(rarity), EnumSet.allOf(WeaponAPI.WeaponType.class));
+        //if (doWeaponGlow) ship.setWeaponGlow(1.5f, RARITY_HIGHLIGHT_COLOUR.get(rarity), EnumSet.allOf(WeaponAPI.WeaponType.class));
 
         if (doJitterUnder) {
             float intensity = 0.75f;
-            if (rarity == VARIANT_RARITY.MYTHICAL) intensity *= 2f;
+            if (rarity == VariantRarity.MYTHICAL) intensity *= 2f;
             ship.setJitterShields(false);
             ship.setJitterUnder(this, RARITY_HIGHLIGHT_COLOUR.get(rarity), intensity, 3, 6f);
         }
 
-        if (doEngineColourShift) {
-            ship.getEngineController().fadeToOtherColor(this, null, RARITY_HIGHLIGHT_COLOUR.get(rarity), 0.4f, 0.6f);
+        //if (doEngineColourShift) {
+        //    ship.getEngineController().fadeToOtherColor(this, null, RARITY_HIGHLIGHT_COLOUR.get(rarity), 0.4f, 0.6f);
+        //}
+
+        afterimageInterval.advance(amount);
+        if (afterimageInterval.intervalElapsed()) {
+            Color c = RARITY_HIGHLIGHT_COLOUR.get(rarity);
+            ship.addAfterimage(
+                    new Color(c.getRed(), c.getBlue(), c.getGreen(), 140),
+                    0f,
+                    0f,
+                    ship.getVelocity().x * -0.8f,
+                    ship.getVelocity().y * -0.8f,
+                    4f,
+                    0.1f,
+                    0.0f,
+                    0.6f,
+                    true,
+                    true,
+                    false
+            );
         }
     }
 
@@ -897,6 +919,23 @@ public class RS_BaseVariantHullmod extends BaseHullMod {
     }
 
     protected void addPostPostDescriptionSection(TooltipMakerAPI tooltip, ShipAPI.HullSize hullSize, ShipAPI ship, float width, boolean isForModSpec) {
+        if (hasSubsystem()) addSubsystemInfo(tooltip, hullSize, ship, width, isForModSpec);
+    }
 
+    @Override
+    public Color getNameColor() {
+        return RARITY_HIGHLIGHT_COLOUR.get(rarity);
+    }
+
+    public static Color getHighlightColourForRarity(VariantRarity rarity) {
+        return RARITY_HIGHLIGHT_COLOUR.get(rarity);
+    }
+
+    protected void addSubsystemInfo(TooltipMakerAPI tooltip, ShipAPI.HullSize hullSize, ShipAPI ship, float width, boolean isForModSpec) {
+
+    }
+
+    protected boolean hasSubsystem() {
+        return false;
     }
 }

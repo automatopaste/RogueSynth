@@ -14,7 +14,7 @@ public class RS_VarForged extends RS_BaseVariantHullmod {
     private static final float AUTOFIRE_ACCURACY_PERCENT = -25f;
 
     public RS_VarForged() {
-        this.rarity = VARIANT_RARITY.STANDARD;
+        this.rarity = VariantRarity.STANDARD;
         this.variantDesignation = "Forged";
         this.flavourText = "Built to last";
         this.doJitterUnder = true;

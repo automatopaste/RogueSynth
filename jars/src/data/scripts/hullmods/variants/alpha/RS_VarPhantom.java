@@ -17,7 +17,7 @@ public class RS_VarPhantom extends RS_BaseVariantHullmod {
     private static final float SHIELD_TURN_RATE_PERCENT = -20f;
 
     public RS_VarPhantom() {
-        this.rarity = VARIANT_RARITY.ALPHA;
+        this.rarity = VariantRarity.ALPHA;
         this.variantDesignation = "Phantom";
         this.flavourText = "Skin of stars";
         this.doJitterUnder = true;

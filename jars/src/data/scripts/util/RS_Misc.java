@@ -3,7 +3,9 @@ package data.scripts.util;
 import com.fs.starfarer.api.Global;
 import com.fs.starfarer.api.combat.ShipAPI;
 import com.fs.starfarer.api.fleet.FleetMemberAPI;
+import com.fs.starfarer.api.loading.HullModSpecAPI;
 import data.scripts.campaign.RS_VariantManager;
+import data.scripts.hullmods.RS_BaseVariantHullmod;
 import org.json.JSONArray;
 import org.json.JSONException;
 
@@ -19,15 +21,8 @@ public class RS_Misc {
         weight.put(ShipAPI.HullSize.CAPITAL_SHIP, 1.3f);
     }
 
-    private enum Rarity {
-        STANDARD,
-        ALPHA,
-        ULTRA,
-        MYTHICAL,
-        NULL
-    }
-
-    private static final Map<Rarity, List<String>> variants = new HashMap<>();
+    private static final Map<RS_BaseVariantHullmod.VariantRarity, List<String>> variants = new HashMap<>();
+    private static final Map<String, RS_BaseVariantHullmod.VariantRarity> rarities = new HashMap<>();
 
     public static String rollVariant(final float chance, final ShipAPI.HullSize hullSize, final FleetMemberAPI member) {
         Random random = new Random();
@@ -43,15 +38,15 @@ public class RS_Misc {
         //num += weight.get(hullSize) / 8f;
         num *= weight.get(hullSize);
 
-        Rarity rarity;
+        RS_BaseVariantHullmod.VariantRarity rarity;
         if (num < 0.4f) {
-            rarity = Rarity.STANDARD;
+            rarity = RS_BaseVariantHullmod.VariantRarity.STANDARD;
         } else if (num < 0.7f) {
-            rarity = Rarity.ALPHA;
-        } else if (num < 0.875f) {
-            rarity = Rarity.ULTRA;
+            rarity = RS_BaseVariantHullmod.VariantRarity.ALPHA;
+        } else if (num < 0.9f) {
+            rarity = RS_BaseVariantHullmod.VariantRarity.ULTRA;
         } else {
-            rarity = Rarity.MYTHICAL;
+            rarity = RS_BaseVariantHullmod.VariantRarity.MYTHICAL;
         }
 
         List<String> ids = variants.get(rarity);
@@ -87,7 +82,7 @@ public class RS_Misc {
         for (int i = 0; i < array.length(); i++) {
             String id = array.getJSONObject(i).getString("id");
             if (id.startsWith("#") || id.equals("")) continue;
-            Rarity rarity = Rarity.valueOf(array.getJSONObject(i).getString("rarity"));
+            RS_BaseVariantHullmod.VariantRarity rarity = RS_BaseVariantHullmod.VariantRarity.valueOf(array.getJSONObject(i).getString("rarity"));
 
             switch (rarity) {
                 case STANDARD:
@@ -105,9 +100,29 @@ public class RS_Misc {
             }
         }
 
-        variants.put(Rarity.STANDARD, standard);
-        variants.put(Rarity.ALPHA, alpha);
-        variants.put(Rarity.ULTRA, ultra);
-        variants.put(Rarity.MYTHICAL, mythical);
+        variants.put(RS_BaseVariantHullmod.VariantRarity.STANDARD, standard);
+        variants.put(RS_BaseVariantHullmod.VariantRarity.ALPHA, alpha);
+        variants.put(RS_BaseVariantHullmod.VariantRarity.ULTRA, ultra);
+        variants.put(RS_BaseVariantHullmod.VariantRarity.MYTHICAL, mythical);
+
+        rarities.put("RS_VarNull", RS_BaseVariantHullmod.VariantRarity.NULL);
+        for (String id : standard) rarities.put(id, RS_BaseVariantHullmod.VariantRarity.STANDARD);
+        for (String id : alpha) rarities.put(id, RS_BaseVariantHullmod.VariantRarity.ALPHA);
+        for (String id : ultra) rarities.put(id, RS_BaseVariantHullmod.VariantRarity.ULTRA);
+        for (String id : mythical) rarities.put(id, RS_BaseVariantHullmod.VariantRarity.MYTHICAL);
+    }
+
+    public static String getVarNameFromId(String id) {
+        HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
+        if (spec == null) return "null";
+
+        return spec.getDisplayName();
+    }
+
+    public static RS_BaseVariantHullmod.VariantRarity getRarity(String id) {
+        HullModSpecAPI spec = Global.getSettings().getHullModSpec(id);
+        if (spec == null) return null;
+
+        return rarities.get(id);
     }
 }

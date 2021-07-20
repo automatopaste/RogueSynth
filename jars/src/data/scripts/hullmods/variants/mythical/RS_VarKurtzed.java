@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static data.scripts.campaign.RS_VariantManager.VariantStats.StatType.*;
-import static data.scripts.campaign.RS_VariantManager.VariantStats.StatType.MIN_LEVEL_ZERO_FLUX_BOOST;
 
 public class RS_VarKurtzed extends RS_BaseVariantHullmod {
     private static final float BALLISTIC_DAMAGE_PERCENT = -15f;
@@ -22,7 +21,7 @@ public class RS_VarKurtzed extends RS_BaseVariantHullmod {
     private static final float TOP_SPEED_PERCENT = -35f;
 
     public RS_VarKurtzed() {
-        this.rarity = VARIANT_RARITY.MYTHICAL;
+        this.rarity = VariantRarity.MYTHICAL;
         this.variantDesignation = "Kurtzed";
         this.flavourText = "What if we nuked the";
         this.doJitterUnder = true;

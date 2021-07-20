@@ -21,7 +21,7 @@ public class RS_VarDivinity extends RS_BaseVariantHullmod {
     private static final float MIN_LEVEL_ZERO_FLUX_BOOST_FLAT = 0.25f;
 
     public RS_VarDivinity() {
-        this.rarity = VARIANT_RARITY.MYTHICAL;
+        this.rarity = VariantRarity.MYTHICAL;
         this.variantDesignation = "Divinity";
         this.flavourText = "Cult classic";
         this.doJitterUnder = true;

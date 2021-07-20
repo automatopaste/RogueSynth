@@ -2,22 +2,23 @@ package data.scripts.plugins;
 
 import com.fs.starfarer.api.GameState;
 import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.BaseEveryFrameCombatPlugin;
-import com.fs.starfarer.api.combat.CombatEngineAPI;
-import com.fs.starfarer.api.combat.ShipAPI;
+import com.fs.starfarer.api.combat.*;
 import com.fs.starfarer.api.graphics.SpriteAPI;
 import com.fs.starfarer.api.input.InputEventAPI;
+import com.fs.starfarer.api.util.IntervalUtil;
+import data.scripts.hullmods.RS_BaseVariantHullmod;
+import data.scripts.util.RS_Misc;
 import org.lazywizard.lazylib.combat.CombatUtils;
 import org.lwjgl.input.Keyboard;
 import org.lwjgl.util.vector.Vector2f;
 
-import java.util.HashMap;
+import java.awt.*;
+import java.util.*;
 import java.util.List;
-import java.util.Map;
 
 import static org.lwjgl.opengl.GL11.*;
 
-public class RS_VarIconRenderPlugin extends BaseEveryFrameCombatPlugin {
+public class RS_VarCombatRenderer extends BaseEveryFrameCombatPlugin {
     private static final Map<ShipAPI.HullSize, Vector2f> baseOffset = new HashMap<>();
     static {
         baseOffset.put(ShipAPI.HullSize.FIGHTER, new Vector2f());
@@ -29,6 +30,11 @@ public class RS_VarIconRenderPlugin extends BaseEveryFrameCombatPlugin {
 
     private static boolean renderIcons = true;
     private boolean keyDownLastFrame = false;
+
+    @Override
+    public void init(CombatEngineAPI engine) {
+
+    }
 
     @Override
     public void advance(float amount, List<InputEventAPI> events) {
@@ -44,6 +50,7 @@ public class RS_VarIconRenderPlugin extends BaseEveryFrameCombatPlugin {
 
         glPushMatrix();
         glLoadIdentity();
+        glEnable(GL_BLEND);
         glOrtho(0, Global.getSettings().getScreenWidth(), 0, Global.getSettings().getScreenHeight(), -1, 1);
 
         float zoomMult = 1f / engine.getViewport().getViewMult();

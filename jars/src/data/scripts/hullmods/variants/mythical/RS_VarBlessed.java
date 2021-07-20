@@ -1,7 +1,5 @@
 package data.scripts.hullmods.variants.mythical;
 
-import com.fs.starfarer.api.Global;
-import com.fs.starfarer.api.combat.WeaponAPI;
 import data.scripts.campaign.RS_VariantManager;
 import data.scripts.hullmods.RS_BaseVariantHullmod;
 
@@ -10,7 +8,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static data.scripts.campaign.RS_VariantManager.VariantStats.StatType.*;
-import static data.scripts.campaign.RS_VariantManager.VariantStats.StatType.MIN_LEVEL_ZERO_FLUX_BOOST;
 
 public class RS_VarBlessed extends RS_BaseVariantHullmod {
     private static final float BREAK_PROBABILITY_PERCENT = -95f;
@@ -26,7 +23,7 @@ public class RS_VarBlessed extends RS_BaseVariantHullmod {
     private static final float MISSILE_GUIDANCE_PERCENT = -25f;
 
     public RS_VarBlessed() {
-        this.rarity = VARIANT_RARITY.MYTHICAL;
+        this.rarity = VariantRarity.MYTHICAL;
         this.variantDesignation = "Blessed";
         this.flavourText = "Just a tribute";
         this.doJitterUnder = true;

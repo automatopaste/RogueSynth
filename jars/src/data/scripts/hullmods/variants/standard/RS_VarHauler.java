@@ -15,7 +15,7 @@ public class RS_VarHauler extends RS_BaseVariantHullmod {
     private static final float ENERGY_ROF_PERCENT = -20f;
 
     public RS_VarHauler() {
-        this.rarity = VARIANT_RARITY.STANDARD;
+        this.rarity = VariantRarity.STANDARD;
         this.variantDesignation = "Hauler";
         this.flavourText = "Fitted for delivery";
         this.doJitterUnder = true;

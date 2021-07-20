@@ -14,7 +14,7 @@ public class RS_VarFrontier extends RS_BaseVariantHullmod {
     private static final float FUEL_CAPACITY_PERCENT = -15f;
 
     public RS_VarFrontier() {
-        this.rarity = VARIANT_RARITY.STANDARD;
+        this.rarity = VariantRarity.STANDARD;
         this.variantDesignation = "Frontier";
         this.flavourText = "There and back";
         this.doJitterUnder = true;

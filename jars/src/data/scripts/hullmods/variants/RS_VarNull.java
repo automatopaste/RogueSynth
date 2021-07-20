@@ -9,7 +9,7 @@ import java.util.Map;
 
 public class RS_VarNull extends RS_BaseVariantHullmod {
     public RS_VarNull() {
-        this.rarity = VARIANT_RARITY.NULL;
+        this.rarity = VariantRarity.NULL;
         this.variantDesignation = "Null Variant";
         //this.flavourText = "this variant serves as a placeholder to allow the system to correctly apply variants (this message will be removed for mod release)";
         this.flavourText = "lol";

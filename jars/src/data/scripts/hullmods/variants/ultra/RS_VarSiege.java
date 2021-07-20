@@ -17,7 +17,7 @@ public class RS_VarSiege extends RS_BaseVariantHullmod {
     private static final float MISSILE_HEALTH_PERCENT = -35f;
 
     public RS_VarSiege() {
-        this.rarity = VARIANT_RARITY.ULTRA;
+        this.rarity = VariantRarity.ULTRA;
         this.variantDesignation = "Siege";
         this.flavourText = "Hold the line";
         this.doJitterUnder = true;

@@ -18,7 +18,7 @@ public class RS_VarSpecialised extends RS_BaseVariantHullmod {
     private static final float BALLISTIC_FLUX_COST_PERCENT = 10f;
 
     public RS_VarSpecialised() {
-        this.rarity = VARIANT_RARITY.ALPHA;
+        this.rarity = VariantRarity.ALPHA;
         this.variantDesignation = "Specialised";
         this.flavourText = "A different calibre";
         this.doJitterUnder = true;

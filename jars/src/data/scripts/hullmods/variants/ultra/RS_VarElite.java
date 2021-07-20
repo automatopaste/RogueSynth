@@ -19,7 +19,7 @@ public class RS_VarElite extends RS_BaseVariantHullmod {
     private static final float CR_DECAY_PERCENT = 15f;
 
     public RS_VarElite() {
-        this.rarity = VARIANT_RARITY.ULTRA;
+        this.rarity = VariantRarity.ULTRA;
         this.variantDesignation = "Elite";
         this.flavourText = "Best of the best";
         this.doJitterUnder = true;

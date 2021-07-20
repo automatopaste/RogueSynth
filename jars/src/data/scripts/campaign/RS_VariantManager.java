@@ -203,7 +203,25 @@ public class RS_VariantManager implements CampaignEventListener {
 
     @Override
     public void reportEconomyMonthEnd() {
+        for (FleetMemberAPI fleetMember : Global.getSector().getPlayerFleet().getMembersWithFightersCopy()) {
+            if (fleetMember.isFighterWing()) continue;
 
+            boolean hasVar = false;
+            for (String id : fleetMember.getVariant().getHullMods()) {
+                if (id.startsWith("RS_Var")) {
+                    hasVar = true;
+                    break;
+                }
+            }
+
+            if (!hasVar) {
+                String id = RS_Misc.rollVariant(BASE_CHANCE, fleetMember.getHullSpec().getHullSize(), fleetMember);
+                Global.getSector().getCampaignUI().addMessage(
+                        "The " + fleetMember.getShipName() + " has permanently installed the RogueSynth variant "
+                                + RS_Misc.getVarNameFromId(id)
+                );
+            }
+        }
     }
 
     public static class VariantStats {

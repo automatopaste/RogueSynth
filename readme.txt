@@ -1,4 +1,5 @@
-To toggle Variant hullmod icon overlay in combat, press P.
+!!-- To toggle Variant hullmod icon overlay in combat, press P.
+!!--
 
 "RogueSynth" by tomatopaste. First started development in October 2020.
 Art, sounds and programming are done by me, additional help is documented below. This isn't a locked vault, I'm

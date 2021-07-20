@@ -18,7 +18,7 @@ public class RS_VarRogue extends RS_BaseVariantHullmod {
     private static final float CR_DECAY_SPEED_PERCENT = 10f;
 
     public RS_VarRogue() {
-        this.rarity = VARIANT_RARITY.ULTRA;
+        this.rarity = VariantRarity.ULTRA;
         this.variantDesignation = "Rogue";
         this.flavourText = "Eponymous bait";
         this.doJitterUnder = true;

@@ -7,7 +7,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import static data.scripts.campaign.RS_VariantManager.VariantStats.StatType.*;
-import static data.scripts.campaign.RS_VariantManager.VariantStats.StatType.CR_DECAY_SPEED;
 
 public class RS_VarOpus extends RS_BaseVariantHullmod {
     private static final float TIME_MULT_PERCENT = 5f;
@@ -19,7 +18,7 @@ public class RS_VarOpus extends RS_BaseVariantHullmod {
     private static final float EMP_RECEIVED_PERCENT = 40f;
 
     public RS_VarOpus() {
-        this.rarity = VARIANT_RARITY.ULTRA;
+        this.rarity = VariantRarity.ULTRA;
         this.variantDesignation = "Opus";
         this.flavourText = "\"I live to see you eat that contract\"";
         this.doJitterUnder = true;

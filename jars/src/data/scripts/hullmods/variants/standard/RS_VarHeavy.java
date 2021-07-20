@@ -16,7 +16,7 @@ public class RS_VarHeavy extends RS_BaseVariantHullmod {
     private static final float ENGINE_HEALTH_PERCENT = 15f;
 
     public RS_VarHeavy() {
-        this.rarity = VARIANT_RARITY.STANDARD;
+        this.rarity = VariantRarity.STANDARD;
         this.variantDesignation = "Heavy";
         this.flavourText = "Hit like a truck";
         this.doJitterUnder = true;

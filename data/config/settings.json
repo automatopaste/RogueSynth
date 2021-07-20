@@ -1,6 +1,6 @@
 {
   "plugins":{
-    "RS_VarIconRenderPlugin":"data.scripts.plugins.RS_VarIconRenderPlugin",
+    "RS_VarIconRenderPlugin":"data.scripts.plugins.RS_VarCombatRenderer",
   },
 
   "graphics": {

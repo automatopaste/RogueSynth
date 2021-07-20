@@ -1,7 +1,10 @@
 package data.scripts.hullmods.variants.alpha;
 
+import com.fs.starfarer.api.combat.ShipAPI;
 import data.scripts.campaign.RS_VariantManager;
 import data.scripts.hullmods.RS_BaseVariantHullmod;
+import data.scripts.subsystems.RS_Hyperburner;
+import data.scripts.util.dl_SubsystemUtils;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -16,7 +19,7 @@ public class RS_VarHunterKiller extends RS_BaseVariantHullmod {
     private static final float MOUNT_HEALTH_PERCENT = -50f;
 
     public RS_VarHunterKiller() {
-        this.rarity = VARIANT_RARITY.ALPHA;
+        this.rarity = VariantRarity.ALPHA;
         this.variantDesignation = "Hunter-Killer";
         this.flavourText = "Vacuum decay";
         this.doJitterUnder = true;
@@ -32,5 +35,12 @@ public class RS_VarHunterKiller extends RS_BaseVariantHullmod {
         stats.put(MOUNT_HEALTH, MOUNT_HEALTH_PERCENT);
 
         variantStats = new RS_VariantManager.VariantStats(stats);
+    }
+
+    @Override
+    public void applyEffectsAfterShipCreation(ShipAPI ship, String id) {
+        super.applyEffectsAfterShipCreation(ship, id);
+
+        dl_SubsystemUtils.queueSubsystemFromHullmodForShip(ship, RS_Hyperburner.class);
     }
 }

@@ -19,7 +19,7 @@ public class RS_VarMagnum extends RS_BaseVariantHullmod {
     private static final float CR_DECAY_PERCENT = 25f;
 
     public RS_VarMagnum() {
-        this.rarity = VARIANT_RARITY.MYTHICAL;
+        this.rarity = VariantRarity.MYTHICAL;
         this.variantDesignation = "Magnum";
         this.flavourText = "Heavy hits";
         this.doJitterUnder = true;

@@ -1,3 +1,8 @@
+v1.0.0
+-added special DroneLib subsystems to rarer variants
+-variants will be automatically applied to ships without a permanent variant every economy month end
+-updated in-combat ship trails to reflect variant installation
+
 beta.4
 -added console command to randomize all ships in fleet using "RSRandVars all", or a single ship using "RSRandVars <name>"
 -added settings.json entries to change variant text and glow colours

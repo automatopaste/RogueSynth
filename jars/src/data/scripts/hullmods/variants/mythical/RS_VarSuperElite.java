@@ -18,7 +18,7 @@ public class RS_VarSuperElite extends RS_BaseVariantHullmod {
     private static final float CR_DECAY_PERCENT = 25f;
 
     public RS_VarSuperElite() {
-        this.rarity = VARIANT_RARITY.MYTHICAL;
+        this.rarity = VariantRarity.MYTHICAL;
         this.variantDesignation = "Super Elite";
         this.flavourText = "\"Cocainum!\"";
         this.doJitterUnder = true;
